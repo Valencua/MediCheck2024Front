@@ -1,9 +1,11 @@
+
 .calendar {
     width: 90%;
     max-width: 600px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding-top: 13vh;
+    padding-top: 6vh;
     background-color: #F7EFED;
+    height: 88vh;
 }
 
 .calendarHeader {
@@ -17,7 +19,7 @@
 .navButtonLeft {
     border: none;
     cursor: pointer;
-    background-image: url('../../public/icons/flecha_izq.png');
+    background-image: url('../../../public/icons/flecha_izq.png');
     background-size: cover;
     background-position: center;
     width: 4vh;
@@ -27,7 +29,7 @@
 .navButtonRight {
     border: none;
     cursor: pointer;
-    background-image: url('../../public/icons/flecha_derecha.png');
+    background-image: url('../../../public/icons/flecha_derecha.png');
     background-size: cover;
     background-position: center;
     width: 4vh;
@@ -85,6 +87,7 @@
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
     padding: 10px;
+    height: 76vh;
 }
 
 .calendarDay{
@@ -92,6 +95,7 @@
     text-align: center;
     border-bottom: 0.3vh solid #50535A80;
     font-family: 'Baloo 2', sans-serif;
+    height: 2vh;
 }
 
 .calendarDate {
@@ -131,8 +135,26 @@
 }
 
 .calendarDateEmpty {
+    width: 100%;
+    height: 12vh;
     background-color: #F7EFED;
     border: 0.3vh solid #50535A8C;
+}
+
+.today {
+    border: 0.3vh solid #30695D;
+}
+
+.currentDay {
+    border-bottom: 0.3vh solid #30695D;
+}
+
+.today .dateNumber {
+    background-color: #3BAA73;
+}
+
+.today .dateContent {
+    background-color: #EDF7F3;
 }
 
 @media (max-width: 600px) {

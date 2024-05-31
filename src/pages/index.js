@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import Calendar from '../components/Calendar';
-import BottomNavBar from '../components/BottomNavBar';
+import Calendar from '../components/Calendar/Calendar';
+import BottomNavBar from '../components/BottomNavBar/BottomNavBar';
 import '../styles/globals.css'
 export default function Home() {
     return (
