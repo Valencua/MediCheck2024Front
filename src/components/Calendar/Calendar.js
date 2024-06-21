@@ -51,7 +51,11 @@ const Calendar = () => {
 
             dates.push(
                 <div key={i} className={`${styles.calendarDate} ${isToday ? styles.today : ''}`}>
-                    <div className={styles.dateNumber}>{i}</div>
+                    <div className={styles.dateNumber}>
+                        <div className={styles.dateMark}>
+                            {i}
+                        </div>
+                    </div>
                     <div className={styles.dateContent}></div>
                 </div>
             );
@@ -76,15 +80,11 @@ const Calendar = () => {
     return (
         <div className={styles.calendar}>
             <header className={styles.calendarHeader}>
-                <button onClick={handlePrevMonth} className={styles.navButtonLeft}></button>
-                <h1 className={styles.dateText}>{months[date.getMonth()]} {date.getFullYear()}</h1>
-                <button onClick={handleNextMonth} className={styles.navButtonRight}></button>
-                <div className={styles.reminderSection}>
-                    {/*<div className={styles.reminderIcon}>⏲️</div>*/}
-                    {/*<div className={styles.reminderText}>*/}
-                    {/*    <div>Tomar medicamento de presion: <span>Hoy</span></div>*/}
-                    {/*    <div>Ir al centro de vacunacion: <span>Mañana</span></div>*/}
-                    {/*</div>*/}
+                <h1 className={styles.yearText}>{date.getFullYear()}</h1>
+                <div className={styles.contenedor}>
+                    <button onClick={handlePrevMonth} className={styles.navButtonLeft}></button>
+                    <h1 className={styles.dateText}>{months[date.getMonth()]}</h1>
+                    <button onClick={handleNextMonth} className={styles.navButtonRight}></button>
                 </div>
             </header>
             <div className={styles.calendarGrid}>
