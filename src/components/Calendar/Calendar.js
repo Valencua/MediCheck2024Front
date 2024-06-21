@@ -62,7 +62,7 @@ const Calendar = () => {
         }
 
         // Fill the empty cells at the end with the first days of the next month to ensure 35 cells
-        const remainingDays = 35 - dates.length; // Ensure the calendar always has 35 cells (5 weeks)
+        const remainingDays = 42 - dates.length; // Ensure the calendar always has 42 cells (6 weeks)
         for (let i = 1; i <= remainingDays; i++) {
             dates.push(
                 <div key={`next-empty-${i}`} className={styles.calendarDateEmpty}>
@@ -71,7 +71,7 @@ const Calendar = () => {
                 </div>
             );
         }
-
+        
         return dates;
     };
 
