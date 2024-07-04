@@ -1,0 +1,98 @@
+/* src/AccordionList.css */
+
+
+.accordionHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.iconoVacunacion {
+    background-image: url('../../../public/icons/ic_vacuna.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
+}
+
+.iconoPildora {
+    background-image: url('../../../public/icons/ic_pildora.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
+}
+
+.accordionContainer{
+    background-color: #F7EFED;
+}
+
+.flechaBack {
+    border: none;
+    cursor: pointer;
+    background-image: url('../../../public/icons/flecha_back.svg');
+    background-size: cover;
+    background-position: center;
+    width: 2.4vh;
+    height: 2.4vh;
+}
+
+.accordionPageHeader{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 30vh;
+    height: 10vh;
+    background-color: #F7EFED;
+}
+
+.accordionListContainer{
+    background-color: #F7EFED;
+}
+
+.accordionPageHeaderDate {
+    font-family: "Baloo 2", sans-serif;
+    font-size: 3vh;
+    font-weight: 1000;
+    text-align: center;
+    text-shadow: 0.5px 0.5px 1px rgba(16, 37, 56, 0.7), -0.5px -0.5px 1px rgba(16, 37, 56, 0.7), 0.5px -0.5px 1px rgba(16, 37, 56, 0.7), -0.5px 0.5px 1px rgba(16, 37, 56, 0.7);
+    color: rgba(16, 37, 56, 0.9);
+}
+
+.accordionType{
+    font-family: "Baloo 2", sans-serif;
+    font-size: 3vh;
+    font-weight: 600;
+    color: #30695D;
+}
+.accordionAmount {
+    font-family: "Baloo 2", sans-serif;
+    font-size: 2.5vh;
+    font-weight: 600;
+    color: #00566999;
+    min-width: 6vh;
+    text-align: center;
+}
+.accordionTime{
+    font-family: "Baloo 2", sans-serif;
+    font-size: 3vh;
+    font-weight: 600;
+    color: #005669;
+    min-width: 12vh;
+    text-align: right;
+}
+
+.accordionDetails{
+    font-family: "Baloo 2", sans-serif;
+    font-size: 2.2vh;
+    font-weight: 400;
+    color: #3E4D5CB2;
+    min-width: 12vh;
+    display: flex;
+    justify-content: center;
+    text-align: left;
+    padding-left: 5vh;
+    padding-right: 5vh;
+}

@@ -8,7 +8,7 @@ const BottomNavBar = () => {
                 <img src="/icons/lobby.svg" alt="Home" className={styles.icon} />
             </div>
             <div className={styles.navItem}>
-                <img src="/icons/calendar.svg" alt="Calendar" className={styles.icon} />
+                <img src="/icons/calendar.svg" alt="HabitosSaludables" className={styles.icon} />
             </div>
             <div className={styles.navItem}>
                 <img src="/icons/Profile.svg" alt="Add" className={styles.icon} />

@@ -1,10 +1,18 @@
 // src/components/Calendar.js
 import React, { useState } from 'react';
 import styles from './Calendar.module.css';
+import { useRouter } from 'next/router';
 
 const Calendar = () => {
     const [date, setDate] = useState(new Date()); // Start with the current month
     const today = new Date(); // Get the current date
+    const router = useRouter();
+    const goToEventsListPage = (day, month, year) => {
+        router.push({
+            pathname: '/event-list',
+            query: { day: day, month: month, year:year },
+        });
+    };
 
     const daysOfWeek = ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'];
     const months = [
@@ -50,7 +58,7 @@ const Calendar = () => {
             );
 
             dates.push(
-                <div key={i} className={`${styles.calendarDate} ${isToday ? styles.today : ''}`}>
+                <div key={i} className={`${styles.calendarDate} ${isToday ? styles.today : ''}`} onClick={() => goToEventsListPage(i, months[date.getMonth()], date.getFullYear())}>
                     <div className={styles.dateNumber}>
                         <div className={styles.dateMark}>
                             {i}
@@ -61,8 +69,7 @@ const Calendar = () => {
             );
         }
 
-        // Fill the empty cells at the end with the first days of the next month to ensure 35 cells
-        const remainingDays = 42 - dates.length; // Ensure the calendar always has 42 cells (6 weeks)
+        const remainingDays = 42 - dates.length;
         for (let i = 1; i <= remainingDays; i++) {
             dates.push(
                 <div key={`next-empty-${i}`} className={styles.calendarDateEmpty}>

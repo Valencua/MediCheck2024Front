@@ -1,0 +1,52 @@
+/* VacunacionModal.css */
+
+.rs-picker-popup.rs-picker-popup-date{
+    z-index: 99999!important;
+}
+
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border: 0!important;
+}
+
+fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+    border: 0!important;
+}
+
+span.rs-input-group-addon {
+    color: transparent;
+    display: none;
+}
+
+.rs-picker-input-group.rs-input-group.rs-input-group-inside {
+    border: none!important;
+    background-color: #AFAFAF40!important;
+    border-radius: 2vh!important;
+    width: 20vh!important;
+}
+.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
+    color: rgba(0, 0, 0, 0.6)!important;
+}
+.rs-picker-date>.rs-input-group.rs-input-group-inside .rs-input {
+    background-color: transparent;
+    text-align: center;
+    padding: 0!important;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+/* Add a style for the open modal button */
+.open-modal-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 500; /* Ensure the button appears above other content but below the modal */
+}

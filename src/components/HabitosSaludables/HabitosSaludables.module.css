@@ -1,0 +1,133 @@
+.habitosSaludablesContainer{
+    background-color: #F7EFED;
+}
+
+
+.accordionPageHeader{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 30vh;
+    height: 10vh;
+    background-color: #F7EFED;
+}
+
+.flechaBack {
+    border: none;
+    cursor: pointer;
+    background-image: url('../../../public/icons/flecha_back.svg');
+    background-size: cover;
+    background-position: center;
+    width: 2.4vh;
+    height: 2.4vh;
+}
+
+.accordionPageHeaderDate {
+    font-family: "Baloo 2", sans-serif;
+    font-size: 3vh;
+    font-weight: 1000;
+    text-align: center;
+    text-shadow: 0.5px 0.5px 1px rgba(16, 37, 56, 0.7), -0.5px -0.5px 1px rgba(16, 37, 56, 0.7), 0.5px -0.5px 1px rgba(16, 37, 56, 0.7), -0.5px 0.5px 1px rgba(16, 37, 56, 0.7);
+    color: rgba(16, 37, 56, 0.9);
+}
+
+
+
+.habitosTitulo{
+    background-color: #477489;
+    color: #F7EFED;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Baloo 2", sans-serif;
+    font-size: 3vh;
+    font-weight: 800;
+}
+
+.habitoContainer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 9vh;
+}
+
+.habitoDormir{
+    background-image: url('../../../public/icons/ic_dormir_saludable.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
+}
+
+.habitoAlimento{
+    background-image: url('../../../public/icons/ic_alimento_saludable.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
+}
+
+.habitoEjercicio{
+    background-image: url('../../../public/icons/ic_ejercicio_saludable.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
+}
+
+.habitoAlcohol {
+    background-image: url('../../../public/icons/ic_alcohol_no_saludable.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
+}
+
+.habitoFumar {
+    background-image: url('../../../public/icons/ic_fumar_no_saludable.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
+}
+
+.habitoSaludableText{
+    background-color: #F7EFED;
+    color: #30695D;
+    height: 5vh;
+    font-family: "Baloo 2", sans-serif;
+    font-weight: 900;
+    font-size: 2.5vh;
+    min-width: 29vh;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.eliminarHabitoSaludable{
+    background-image: url('../../../public/icons/ic_eliminar_habito.svg');
+    background-size: cover;
+    background-position: center;
+    width: 2vh;
+    height: 2vh;
+}
+
+.habitosNoSaludables{
+
+}
+
+.habitosSaludables{
+
+}
+.emptyText {
+    background-color: #F7EFED;
+    color: #30695D;
+    height: 5vh;
+    font-family: "Baloo 2", sans-serif;
+    font-weight: 500;
+    font-size: 4vh;
+    min-width: 29vh;
+    display: flex;
+    justify-content: center;
+}

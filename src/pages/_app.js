@@ -5,8 +5,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Calendar PWA</title>
-        <meta name="description" content="Calendar PWA with Next.js" />
+        <title>HabitosSaludables PWA</title>
+        <meta name="description" content="HabitosSaludables PWA with Next.js" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#000000" />
