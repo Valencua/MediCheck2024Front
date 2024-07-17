@@ -96,3 +96,37 @@
     padding-left: 5vh;
     padding-right: 5vh;
 }
+
+.botonEdicionInactivo{
+    border: none;
+    cursor: pointer;
+    background-image: url('../../../public/icons/ic_basurero_off.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
+    position: fixed;
+    bottom: 14vh;
+    right: 2vh;
+}
+
+.botonEdicionActivo {
+    border: none;
+    cursor: pointer;
+    background-image: url('../../../public/icons/ic_basurero.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
+    position: fixed;
+    bottom: 14vh;
+    right: 2vh;
+}
+
+.iconoEliminar {
+    background-image: url('../../../public/icons/ic_eliminar.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
+}
