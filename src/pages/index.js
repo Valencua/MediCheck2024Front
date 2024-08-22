@@ -1,7 +1,6 @@
 import Head from 'next/head';
-import BottomNavBar from '../components/BottomNavBar/BottomNavBar';
-import '../styles/globals.css'
-import Calendar from "../components/Calendar/Calendar";
+import '../styles/globals.css';
+import Login from "../components/Login/Login";
 
 export default function Home() {
     return (
@@ -13,9 +12,8 @@ export default function Home() {
             </Head>
 
             <main>
-                <Calendar />
+                <Login />
             </main>
-            <BottomNavBar />
         </div>
     );
 }

@@ -1,23 +1,17 @@
 import React from 'react';
 import styles from './HabitosSaludablesNavBar.module.css';
 
-const HabitosSaludablesNavBar = ({showDormirPopUp, showAlimentarPopUp, showEjercicioPopUp, showAlcoholPopUp, showFumarPopUp}) => {
+const HabitosSaludablesNavBar = ({showHabitosNoSaludablesPopUp, showHabitosSaludablesPopUp, GoBack}) => {
     return (
         <div className={styles.navbar}>
-            <div className={styles.navItem}  onClick={showDormirPopUp}>
-                <img src="/icons/ic_dormir.svg" alt="Home" className={styles.icon} />
+            <div className={styles.navItem}  onClick={showHabitosSaludablesPopUp}>
+                <img src="/icons/Habitos_saludables.svg" alt="habitossaludables" className={styles.icon} />
             </div>
-            <div className={styles.navItem} onClick={showAlimentarPopUp}>
-                <img src="/icons/ic_alimento.svg" alt="HabitosSaludables" className={styles.icon} />
+            <div className={styles.navItem} onClick={showHabitosNoSaludablesPopUp}>
+                <img src="/icons/Habitos_nosaludables.svg" alt="habitosnosaludables" className={styles.icon} />
             </div>
-            <div className={styles.navItem} onClick={showEjercicioPopUp}>
-                <img src="/icons/ic_ejercicio.svg" alt="Add" className={styles.icon} />
-            </div>
-            <div className={styles.navItem} onClick={showAlcoholPopUp}>
-                <img src="/icons/ic_alcohol.svg" alt="Add" className={styles.icon} />
-            </div>
-            <div className={styles.navItem} onClick={showFumarPopUp}>
-                <img src="/icons/ic_fumar.svg" alt="Add" className={styles.icon} />
+            <div className={styles.navItem} onClick={GoBack}>
+                <img src="/icons/volver_medicacionesyvac.svg" alt="volver" className={styles.icon} />
             </div>
         </div>
     );

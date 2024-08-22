@@ -5,7 +5,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 36vh;
-    height: 51vh;
+    height: 86vh;
     background-color: #F7EFED;
     border-radius: 3vh;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -135,9 +135,87 @@
 }
 
 .icon{
-    background-image: url('../../../public/icons/ic_ejercicio_blue.svg');
+    background-image: url('../../../public/icons/Saludable.svg');
     background-size: cover;
     background-position: center;
     width: 12vh;
     height: 12vh;
+}
+
+.contenedorHabitos{
+    display: flex ;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 38vh;
+    border-bottom: 0.2vh solid #50535A80;
+    gap: 4vh;
+}
+
+.habitoNoSaludableText{
+    background-color: #F7EFED;
+    color: #354E85;
+    height: 5vh;
+    font-family: "Baloo 2", sans-serif;
+    font-weight: 900;
+    font-size: 2.5vh;
+    max-width: 22vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 3vh;
+}
+.iconComerSaludable{
+    background-image: url('../../../public/icons/ic_alimento_blue.svg');
+    background-size: cover;
+    background-position: center;
+    width: 7vh;
+    height: 7vh;
+}
+.iconDormir{
+    background-image: url('../../../public/icons/ic_dormir_blue.svg');
+    background-size: cover;
+    background-position: center;
+    width: 7vh;
+    height: 7vh;
+    align-self: flex-start;
+}
+.iconEjercicio{
+    background-image: url('../../../public/icons/ic_ejercicio_blue.svg');
+    background-size: cover;
+    background-position: center;
+    width: 7vh;
+    height: 7vh;
+    align-self: flex-start;
+}
+.contenedorHabitosRow {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 34vh;
+}
+.descripcion{
+    font-family: "Baloo 2", sans-serif;
+    font-size: 1.7vh;
+    font-weight: 400;
+    color: #3E4D5CB2;
+    max-width: 28vh;
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
+    text-align: left;
+}
+.contenedorTitleIcon{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.contenedorHabitosRowDisable{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 34vh;
+    opacity: 50%;
 }

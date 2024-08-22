@@ -32,11 +32,11 @@
 .flechaBack {
     border: none;
     cursor: pointer;
-    background-image: url('../../../public/icons/flecha_back.svg');
+    background-image: url('../../../public/icons/flecha_izq.svg');
     background-size: cover;
     background-position: center;
-    width: 2.4vh;
-    height: 2.4vh;
+    width: 2.3vh;
+    height: 2.8vh;
 }
 
 .accordionPageHeader{
