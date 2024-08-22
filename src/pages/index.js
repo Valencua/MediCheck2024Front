@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import '../styles/globals.css';
 import Login from "../components/Login/Login";
+import Register from "../components/SignIn/SignIn";
 
 export default function Home() {
     return (
@@ -12,7 +13,7 @@ export default function Home() {
             </Head>
 
             <main>
-                <Login />
+                <Register />
             </main>
         </div>
     );

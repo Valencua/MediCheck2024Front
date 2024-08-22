@@ -7,13 +7,26 @@
 }
 .containerWithBordersName{
     border-bottom: 0.2vh solid #50535A80;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .containerWithBordersLogo{
     border-bottom: 0.2vh solid #50535A80;
     height: 28vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:2vh;
 }
 .containerWithBordersPassword{
     border-bottom: 0.2vh solid #50535A80;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .modalTitle{
     font-family: "Baloo 2", sans-serif;
@@ -27,15 +40,31 @@
     justify-content: center;
     align-items: center;
 }
+.containerUserLabel{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 33vh;
+}
+.containerUserInputUser{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33vh;
+    height: 7vh;
+    margin-bottom: 3vh;
+
+}
 .labelUser{
     font-family: "Baloo 2", sans-serif;
     font-weight: 400;
     color: #477489;
     text-shadow: 0.5px 0.5px 1px #477489, -0.5px -0.5px 1px #477489, 0.5px -0.5px 1px #477489, -0.5px 0.5px 1px #477489;
-    height: 7vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    padding-top: 3vh;
+    padding-left: 1vh;
 }
 .buttonModal{
     font-family: "Baloo 2", sans-serif!important;
@@ -46,18 +75,64 @@
     border-radius: 1.5vh!important;
     text-transform: capitalize!important;
     font-size: 2.3vh!important;
+    height: 5vh;
 }
 .buttonContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 10vh;
+    height: 22vh;
+    gap: 3vh;
 }
 .icon{
     background-image: url('../../../public/icons/Logo.svg');
     background-size: cover;
     background-position: center;
-    width: 12vh;
-    height: 12vh;
+    width: 15vh;
+    height: 17vh;
+}
+.userLogo{
+    background-image: url('../../../public/icons/User.svg');
+    background-size: cover;
+    background-position: center;
+    width: 3vh;
+    height: 3vh;
+}
+.lockIcon{
+    background-image: url('../../../public/icons/Candado.svg');
+    background-size: cover;
+    background-position: center;
+    width: 2.36vh;
+    height: 3vh;
+}
+.labelRegister{
+    font-family: "Baloo 2", sans-serif;
+    text-decoration: underline;
+    font-size: 2.2vh;
+    font-weight: 400;
+    color: #3BAA73;
+    min-width: 12vh;
+    display: flex;
+    justify-content: center;
+    text-align: left;
+    padding-left: 5vh;
+    padding-right: 5vh;
+}
+.LogoContainer{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 0.2vh solid #50535A80;
+    padding-right: 1.4vh;
+    width: 3vh;
+    height: 4vh;
+}
+.iconTitle{
+    background-image: url('../../../public/icons/LogoText.svg');
+    background-size: cover;
+    background-position: center;
+    width: 21vh;
+    height: 3vh;
+
 }
