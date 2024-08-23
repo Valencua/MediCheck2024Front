@@ -17,13 +17,12 @@ const Login = () => {
         e.preventDefault();
     
         // Send a POST request to the API route
-        const res = await fetch('/register', {
+        const res = await fetch('http://localhost:3000/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                nombreUsuario: username,
-                correoElectronico: email,
-                contraseña: password
+                nombreUsuario: name,
+                contraseña: pass
             })
         });
     
@@ -32,12 +31,12 @@ const Login = () => {
         if (res.ok) {
           // Save the token in localStorage or cookies and redirect to the protected page
           localStorage.setItem('token', data.token);
-          router.push('/protected');
+          router.push('/calendar');
         } else {
           // Display an error message
           setError(data.message);
         }
-      };
+    };
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -133,7 +132,7 @@ const Login = () => {
                 </div>
             </Box>
             <Box className={styles.buttonContainer}>
-                <Button className={styles.buttonModal} variant="contained" color="primary" fullWidth>
+                <Button className={styles.buttonModal} variant="contained" color="primary" onClick={handleSubmit} fullWidth>
                     Confirmar
                 </Button>
                 <Typography variant="h6" className={styles.labelRegister} onClick={goToRegister}>¿No tienes cuenta?</Typography>

@@ -10,7 +10,7 @@ import EventList from "../components/EventList/EventList";
 
 export default function EventListPage() {
     const router = useRouter();
-    const { day, month, year } = router.query;
+    const { day, month, year, event } = router.query;
     const [isMedicacionModalOpen, setIsMedicacionModalOpen] = useState(false);
     const [isVacunacionModalOpen, setIsVacunacionModalOpen] = useState(false);
 
@@ -40,7 +40,7 @@ export default function EventListPage() {
             </Head>
 
             <main>
-                <EventList day={day} month={month} year={year} />
+                <EventList day={day} month={month} year={year} event={JSON.parse(event)}/>
             </main>
             <EventListBottomNavBar showMedicamentosPopUp={handleMedicacionModalOpen} showVacunacionPopUp={handleVacunacionModalOpen}  day={day} month={month} year={year}/>
 

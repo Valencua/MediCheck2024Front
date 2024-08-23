@@ -7,20 +7,49 @@ import { useRouter } from 'next/router';
 import styles from './EventList.module.css';
 import './EventList.css';
 
-const EventList = ({ day, month, year }) => {
+const formatTime = (seconds) => {
+    const date = new Date(seconds * 1000);
+    return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: true });
+};
+
+
+const EventList = ({ day, month, year, event }) => {
+    const createEvents = (event) => {
+        const combinedArray = [];
+        event.forEach(item => {
+            if (item["vacunacion_medicacion.medicacion"]) {
+                combinedArray.push(...item["vacunacion_medicacion.medicacion"].map(med => ({
+                    type: 'Medicación',
+                    name: med.NombreMedicamento,
+                    amount: med.CantidadMedicamento,
+                    time: formatTime(med.TimestampMedicacion._seconds),
+                    details: med.NotasMedicamento,
+                    timestamp: med.TimestampMedicacion._seconds
+                })));
+            }
+        });
+    
+        event.forEach(item => {
+            if (item["vacunacion_medicacion.vacunacion"]) {
+                combinedArray.push(...item["vacunacion_medicacion.vacunacion"].map(vac => ({
+                    type: 'Vacunación', 
+                    name: vac.NombreVacuna,
+                    time: formatTime(vac.TimestampVacunacion._seconds),
+                    timestamp: vac.TimestampVacunacion._seconds
+                })));
+            }
+        });
+    
+        combinedArray.sort((a, b) => a.timestamp - b.timestamp);
+    
+        combinedArray.forEach(item => delete item.timestamp);
+    
+        return combinedArray;
+    }
     const [isEditionActive, setIsEditionActive] = useState(false);
-    const [items, setItems] = useState([
-        {type: 'Vacunación', time: '8:30 am'},
-        {type: 'Medicación', amount: '2 ml', time: '9:00 am'},
-        {type: 'Vacunación', time: '10:30 am'},
-        {
-            type: 'Medicación',
-            amount: '1 g',
-            time: '9:00 am',
-            details: 'Tomar con un vaso de agua, no con algun jugo y tener en cuenta que despues de la primera dosis provoca cansancio. Ademas recordar que lalalala...'
-        }
-    ]);
-    const router = useRouter();
+    const [items, setItems] = useState(event? createEvents(event) : [])
+    
+    const router = useRouter(); 
 
     const goBack = () => {
         router.back();
@@ -56,7 +85,7 @@ const EventList = ({ day, month, year }) => {
                         >
                             <div className={styles.accordionHeader}>
                                 <div className={iconoFila} onClick={() => removeItem(value)}></div>
-                                <div className={styles.accordionType}>{value.type}</div>
+                                <div className={styles.accordionType}>{value.name}</div>
                                 <div className={styles.accordionAmount}>{value.amount}</div>
                                 <div className={styles.accordionTime}>{value.time}</div>
                             </div>

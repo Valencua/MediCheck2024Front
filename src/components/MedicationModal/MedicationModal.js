@@ -9,9 +9,37 @@ import styles from './MedicationModal.module.css';
 const MedicationModal = ({ isOpen, handleClose }) => {
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('1 pastilla');
-    const [time, setTime] = useState('16:00 pm');
     const [date, setDate] = useState(new Date('2024-03-07T16:00:00'));
     const [notes, setNotes] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        // Send a POST request to the API route
+        const res = await fetch('http://localhost:3000/medicacion', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                nombreMedicamento: name,
+                cantidadMedicamento: quantity,
+                notasMedicamento: notes || '',
+                diaDeEvento: date,
+            })
+        });
+    
+        const data = await res.json();
+    
+        if (res.ok) {
+            const medicationData = data.medicationData
+          // Save the token in localStorage or cookies and redirect to the protected page
+          //localStorage.setItem('token', data.token);
+
+          handleClose()
+        } else {
+          // Display an error message
+          setError(data.message);
+        }
+      };
 
     return (
         <Modal open={isOpen} onClose={handleClose}>
@@ -60,7 +88,7 @@ const MedicationModal = ({ isOpen, handleClose }) => {
                     />
                 </Box>
                 <Box className={styles.buttonContainer}>
-                    <Button className={styles.buttonModal} variant="contained" color="primary" fullWidth onClick={handleClose}>
+                    <Button className={styles.buttonModal} variant="contained" color="primary" fullWidth onClick={handleSubmit}>
                         Confirmar
                     </Button>
                 </Box>

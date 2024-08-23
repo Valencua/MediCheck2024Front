@@ -8,10 +8,18 @@ const Calendar = () => {
     const today = new Date(); // Get the current date
     const router = useRouter();
     const [eventos, setEventos] = useState(null);
-    const goToEventsListPage = (day, month, year) => {
+    const goToEventsListPage = (day, monthName, monthNumber, year) => {
+        const filteredEvent = eventos.filter(item => {
+            return item["vacunacion_medicacion.medicacion"].some(med => {
+                const date = new Date(med.TimestampMedicacion._seconds * 1000);
+                return date.getDate() === day &&
+                       date.getMonth() === monthNumber &&
+                       date.getFullYear() === year;
+            });
+        });
         router.push({
             pathname: '/event-list',
-            query: { day: day, month: month, year:year },
+            query: { day: day, month: monthName, year:year, event:JSON.stringify(filteredEvent) },
         });
     };
 
@@ -79,7 +87,7 @@ const Calendar = () => {
             );
 
             dates.push(
-                <div key={i} className={`${styles.calendarDate} ${isToday ? styles.today : ''}`} onClick={() => goToEventsListPage(i, months[date.getMonth()], date.getFullYear())}>
+                <div key={i} className={`${styles.calendarDate} ${isToday ? styles.today : ''}`} onClick={() => goToEventsListPage(i, months[date.getMonth()], date.getMonth(), date.getFullYear())}>
                     <div className={styles.dateNumber}>
                         <div className={styles.dateMark}>
                             {i}
