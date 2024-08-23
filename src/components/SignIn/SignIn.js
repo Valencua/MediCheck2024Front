@@ -14,6 +14,33 @@ const SignIn = () => {
     const [email, setEmail] = useState(''); 
     const [showPassword, setShowPassword] = useState(false); 
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        try{
+            const res = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    nombreUsuario: name,
+                    correoElectronico: email,
+                    contraseña: pass
+                })
+            });
+
+            const data = await res.json();
+        
+            if (res.ok) {
+                localStorage.setItem('token', data.token);
+                router.push('/calendar');
+            } else {
+                setError(data.message);
+            }
+        }catch(e){
+            console.log(e.message)
+        }
+        
+      };
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -21,7 +48,6 @@ const SignIn = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-
     return (
         <Box className={styles.loginContainer}> 
             <Box className={styles.containerWithBordersTitle}>
@@ -128,10 +154,10 @@ const SignIn = () => {
                 </div>
             </Box>
             <Box className={styles.buttonContainer}>
-                <Button className={styles.buttonModal} variant="contained" color="primary" fullWidth>
+                <Button className={styles.buttonModal} variant="contained" color="primary" onClick={handleSubmit} fullWidth>
                     Confirmar
                 </Button>
-                <Typography variant="h6" className={styles.labelRegister}>¿Ya tienes cuenta?</Typography>
+                <Typography variant="h6" className={styles.labelRegister} onClick={() => router.back()}>¿Ya tienes cuenta?</Typography>
             </Box>
         </Box>
     );

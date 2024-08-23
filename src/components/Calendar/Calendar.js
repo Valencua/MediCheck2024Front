@@ -1,5 +1,5 @@
 // src/components/Calendar.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Calendar.module.css';
 import { useRouter } from 'next/router';
 
@@ -7,12 +7,33 @@ const Calendar = () => {
     const [date, setDate] = useState(new Date()); // Start with the current month
     const today = new Date(); // Get the current date
     const router = useRouter();
+    const [eventos, setEventos] = useState(null);
     const goToEventsListPage = (day, month, year) => {
         router.push({
             pathname: '/event-list',
             query: { day: day, month: month, year:year },
         });
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch('http://localhost:3000/eventos', {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            });
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            const result = await response.json();
+            setEventos(result);
+          } catch (error) {
+            console.log(error)
+          }
+        };
+    
+        fetchData();
+      }, []); 
 
     const daysOfWeek = ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'];
     const months = [

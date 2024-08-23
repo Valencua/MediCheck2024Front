@@ -13,7 +13,7 @@ export default function Home() {
             </Head>
 
             <main>
-                <Register />
+                <Login />
             </main>
         </div>
     );

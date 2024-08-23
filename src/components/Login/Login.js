@@ -13,6 +13,31 @@ const Login = () => {
     const [pass, setPass] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        // Send a POST request to the API route
+        const res = await fetch('/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                nombreUsuario: username,
+                correoElectronico: email,
+                contraseña: password
+            })
+        });
+    
+        const data = await res.json();
+    
+        if (res.ok) {
+          // Save the token in localStorage or cookies and redirect to the protected page
+          localStorage.setItem('token', data.token);
+          router.push('/protected');
+        } else {
+          // Display an error message
+          setError(data.message);
+        }
+      };
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -20,7 +45,12 @@ const Login = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-
+    
+    const goToRegister = () => {
+        router.push({
+            pathname: '/signin',     
+        });
+    };
     return (
         <Box className={styles.loginContainer}> 
             <Box className={styles.containerWithBordersTitle}>
@@ -106,7 +136,7 @@ const Login = () => {
                 <Button className={styles.buttonModal} variant="contained" color="primary" fullWidth>
                     Confirmar
                 </Button>
-                <Typography variant="h6" className={styles.labelRegister}>¿No tienes cuenta?</Typography>
+                <Typography variant="h6" className={styles.labelRegister} onClick={goToRegister}>¿No tienes cuenta?</Typography>
             </Box>
         </Box>
     );
