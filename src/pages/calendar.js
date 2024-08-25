@@ -1,12 +1,13 @@
 import BottomNavBar from "../components/BottomNavBar/BottomNavBar";
 import Calendar from "../components/Calendar/Calendar";
+import { EventsProvider } from '../utils/EventsProvider';
 
 export default function CalendarPage() {
 
     return (
-        <div>
-           <Calendar></Calendar>
-           <BottomNavBar></BottomNavBar>
-        </div>
+        <EventsProvider>
+            <Calendar></Calendar>
+            <BottomNavBar></BottomNavBar>
+        </EventsProvider>
     );
 }

@@ -2,12 +2,12 @@ import React from 'react';
 import styles from './EventListBottomNavBar.module.css';
 import {useRouter} from "next/router";
 
-const EventListBottomNavBar = ({showMedicamentosPopUp, showVacunacionPopUp, day, month, year}) => {
+const EventListBottomNavBar = ({showMedicamentosPopUp, showVacunacionPopUp, day, month, year, event}) => {
     const router = useRouter();
     const goToHabitosSaludablesPage = () => {
         router.push({
             pathname: '/habitos-saludables',
-            query: { day: day, month: month, year:year },
+            query: { day: day, month: month, year:year, event:JSON.stringify(event)},
         });
     };
     return (

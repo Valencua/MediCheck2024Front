@@ -8,6 +8,8 @@ import HabitosSaludablesModal from "../components/HabitosSaludablesModal/Habitos
 
 
 export default function HabitosSaludablesPage() {
+
+
     const [habitosSaludables, setHabitosSaludables] = useState([
         {type: 'dormir', texto: 'Este día dormiste 8 horas'},
         {type: 'alimento', texto: 'Este día comiste saludable'},
@@ -37,25 +39,9 @@ export default function HabitosSaludablesPage() {
         setIsHabitosSaludablesModalOpen(false);
     };
 
-    const removeHabitoSaludable = (indexToFilter) => {
-        setHabitosSaludables(prevHabitos => prevHabitos.filter((_, index) => index !== indexToFilter));
-    }
-
-    const removeHabitoNoSaludable = (indexToFilter) => {
-        setHabitosNoSaludables(prevHabitos => prevHabitos.filter((_, index) => index !== indexToFilter));
-    }
-
-    const agregarHabitosSaludables = () => {
-        
-    }
-    const agregarHabitosNoSaludables = () => {
-        if(habitosSaludables.findIndex((habito)=> habito.type === 'alimento') !== -1)
-            return
-        setHabitosSaludables(prevHabitos => [...prevHabitos,{type: 'alimento', texto: 'Este día comiste saludable'}]);
-    }
 
     const router = useRouter();
-    const { day, month, year } = router.query;
+    const { day, month, year, event } = router.query;
     return (
         <div>
             <Head>
@@ -69,10 +55,10 @@ export default function HabitosSaludablesPage() {
                     day={day}
                     month={month}
                     year={year}
+                    event={JSON.parse(event)}
                     habitosSaludables={habitosSaludables}
                     habitosNoSaludables={habitosNoSaludables}
-                    removeHabitoSaludable={removeHabitoSaludable}
-                    removeHabitoNoSaludable={removeHabitoNoSaludable}
+                    
                 />
             </main>
             <HabitosSaludablesNavBar
@@ -80,8 +66,8 @@ export default function HabitosSaludablesPage() {
                 showHabitosSaludablesPopUp={handleHabitosSaludablesModalOpen}
             />
 
-            <HabitosNoSaludablesModal isOpen={isHabitosNoSaludablesModalOpen} handleClose={handleCloseHabitosNoSaludablesModal} agregarHabitosNoSaludables={agregarHabitosNoSaludables} />
-            <HabitosSaludablesModal isOpen={isHabitosSaludablesModalOpen} handleClose={handleCloseHabitosSaludablesModal} agregarHabitosSaludables={agregarHabitosSaludables} />
+            <HabitosNoSaludablesModal isOpen={isHabitosNoSaludablesModalOpen} handleClose={handleCloseHabitosNoSaludablesModal}  />
+            <HabitosSaludablesModal isOpen={isHabitosSaludablesModalOpen} handleClose={handleCloseHabitosSaludablesModal} />
         </div>
     );
 }

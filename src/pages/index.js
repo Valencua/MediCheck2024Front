@@ -1,20 +1,22 @@
 import Head from 'next/head';
 import '../styles/globals.css';
 import Login from "../components/Login/Login";
-import Register from "../components/SignIn/SignIn";
+import { EventsProvider } from '../utils/EventsProvider';
 
 export default function Home() {
     return (
-        <div>
-            <Head>
-                <title>HabitosSaludables PWA</title>
-                <meta name="description" content="HabitosSaludables PWA with Next.js" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+        <EventsProvider>
+            <div>
+                <Head>
+                    <title>HabitosSaludables PWA</title>
+                    <meta name="description" content="HabitosSaludables PWA with Next.js" />
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
 
-            <main>
-                <Login />
-            </main>
-        </div>
+                <main>
+                    <Login />
+                </main>
+            </div>
+        </EventsProvider>
     );
 }

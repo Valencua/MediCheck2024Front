@@ -2,21 +2,32 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Calendar.module.css';
 import { useRouter } from 'next/router';
+import {useEvents} from '../../utils/EventsProvider';
 
 const Calendar = () => {
     const [date, setDate] = useState(new Date()); // Start with the current month
     const today = new Date(); // Get the current date
     const router = useRouter();
     const [eventos, setEventos] = useState(null);
+    const {events, setEvents} = useEvents()
+
+    const hayEventoEsteDia = (day, month, year, timestamp) => {
+        const date = new Date(timestamp._seconds * 1000);
+        return date.getDate() === day &&
+               date.getMonth() === month &&
+               date.getFullYear() === year;
+    }
+
     const goToEventsListPage = (day, monthName, monthNumber, year) => {
         const filteredEvent = eventos.filter(item => {
-            return item["vacunacion_medicacion.medicacion"].some(med => {
-                const date = new Date(med.TimestampMedicacion._seconds * 1000);
-                return date.getDate() === day &&
-                       date.getMonth() === monthNumber &&
-                       date.getFullYear() === year;
-            });
+            return item["vacunacion_medicacion.medicacion"]?.some(med => {
+                return hayEventoEsteDia(day, monthNumber, year, med.TimestampMedicacion)
+            }) || item["vacunacion_medicacion.vacunacion"]?.some(med => {
+                return hayEventoEsteDia(day, monthNumber, year, med.TimestampVacunacion)
+            }) || (item["habitos_nosaludables_saludables.no_saludables"] && hayEventoEsteDia(day, monthNumber, year, item["habitos_nosaludables_saludables.no_saludables"].TimestampHabitosNoSaludables))
+            || item["habitos_nosaludables_saludables.saludables"] && hayEventoEsteDia(day, monthNumber, year, item["habitos_nosaludables_saludables.saludables"].TimestampHabitosSaludables)
         });
+
         router.push({
             pathname: '/event-list',
             query: { day: day, month: monthName, year:year, event:JSON.stringify(filteredEvent) },
@@ -34,6 +45,7 @@ const Calendar = () => {
               throw new Error('Network response was not ok');
             }
             const result = await response.json();
+            //setEvents(result)
             setEventos(result);
           } catch (error) {
             console.log(error)
