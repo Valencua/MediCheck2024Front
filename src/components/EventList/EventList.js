@@ -37,6 +37,7 @@ const EventList = ({ day, month, year, event }) => {
                 combinedArray.push(...item.vacunacion.map(vac => ({
                     type: 'Vacunación', 
                     name: vac.NombreVacuna,
+                    details: vac.NotasVacunacion,
                     time: formatTime(vac.TimestampVacunacion._seconds),
                     timestamp: vac.TimestampVacunacion._seconds
                 })));

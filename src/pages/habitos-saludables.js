@@ -14,7 +14,7 @@ export default function HabitosSaludablesPage({ day, month, year, event }) {
         if (event) {
             try {
                 console.log("Event received:", event);
-                setJsonEvent(event);
+                setJsonEvent(JSON.parse(event));
             } catch (error) {
                 console.error("Failed to parse event JSON:", error);
             }
