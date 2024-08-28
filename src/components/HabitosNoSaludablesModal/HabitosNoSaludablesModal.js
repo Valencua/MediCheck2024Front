@@ -7,11 +7,43 @@ import 'rsuite/dist/rsuite.min.css';
 import styles from './HabitosNoSaludablesModal.module.css';
 
 const HabitosNoSaludablesModal = ({ isOpen, handleClose, agregarAlimentar }) => {
-    const [name, setName] = useState('');
-    const [quantity, setQuantity] = useState('1 pastilla');
-    const [time, setTime] = useState('16:00 pm');
     const [date, setDate] = useState(new Date('2024-03-07T16:00:00'));
-    const [notes, setNotes] = useState('');
+    const [consumoDeAlcohol, setConsumoDeAlcohol] = useState(false);
+    const [consumoDeTabaco, setConsumoDeTabaco] = useState(false);
+
+    const cambiarAlcohol = async (e) => {
+        setConsumoDeAlcohol(!consumoDeAlcohol)
+
+    }
+    const cambiarTabaco = async (e) => {
+        setConsumoDeTabaco(!consumoDeTabaco)
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        //diaDeEvento, actividadFisica, alimentacionSaludable, minSueño
+        // Send a POST request to the API route
+        const res = await fetch('https://medicheckapi.vercel.app/habitos-no-saludables', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                consumoDeAlcohol: consumoDeAlcohol || false,
+                consumoDeTabaco: consumoDeTabaco || false,
+                diaDeEvento: date,
+            })
+        });
+    
+        const data = await res.json();
+        if (res.ok) {
+            //const habitosSaludables = data.habitosSaludables
+          // Save the token in localStorage or cookies and redirect to the protected page
+          //localStorage.setItem('token', data.token);
+
+          handleClose()
+        } else {
+          // Display an error message
+          setError(data.message);
+        }
+      };
 
     return (    
         <Modal open={isOpen} onClose={handleClose}>
@@ -30,27 +62,24 @@ const HabitosNoSaludablesModal = ({ isOpen, handleClose, agregarAlimentar }) => 
                     <DatePicker className={styles.datePicker} value={date} format="MM/dd/yyyy HH:mm" onChange={(newValue) => setDate(newValue)}/>
                 </Box>
                 <Box className={styles.contenedorHabitos}>
-                    <div className={styles.contenedorHabitosRow}>
+                    <div className={consumoDeTabaco? styles.contenedorHabitosRow : styles.contenedorHabitosRowDisable}>
                         <div className={styles.contenedorTitleIcon}>
                             <div className={styles.iconFumarNoSaludable}></div>
-                            <div className={styles.habitoNoSaludableText}>Fumar</div>
+                            <div className={styles.habitoNoSaludableText} onClick = {cambiarTabaco}>Fumar</div>
                         </div> 
                         <div className={styles.descripcion}>El fumar daña casi cada órgano del cuerpo y sistema de órganos del cuerpo y disminuye la salud general de la persona.</div>
                     </div>
-                    <div className={styles.contenedorHabitosRowDisable}>
+                    <div className={consumoDeAlcohol? styles.contenedorHabitosRow : styles.contenedorHabitosRowDisable}>
                         <div className={styles.contenedorTitleIcon}>
                             <div className={styles.iconAlcoholNoSaludable}></div>
-                            <div className={styles.habitoNoSaludableText}>Tomar alcohol</div>
+                            <div className={styles.habitoNoSaludableText} onClick = {cambiarAlcohol}>Tomar alcohol</div>
                         </div>
                         <div className={styles.descripcion}>Con el tiempo, el consumo excesivo de alcohol puede causar enfermedades crónicas y otros serios problemas.</div>
                     </div>
 
                 </Box>
                 <Box className={styles.buttonContainer}>
-                    <Button className={styles.buttonModal} variant="contained" color="primary" fullWidth onClick={() => {
-                        agregarAlimentar()
-                        handleClose()
-                    }}>
+                    <Button className={styles.buttonModal} variant="contained" color="primary" fullWidth onClick={handleSubmit}>
                         Confirmar
                     </Button>
                 </Box>

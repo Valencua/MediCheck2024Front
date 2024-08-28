@@ -14,11 +14,12 @@ const formatTime = (seconds) => {
 
 
 const EventList = ({ day, month, year, event }) => {
+    
     const createEvents = (event) => {
         const combinedArray = [];
         event.forEach(item => {
-            if (item["vacunacion_medicacion.medicacion"]) {
-                combinedArray.push(...item["vacunacion_medicacion.medicacion"].map(med => ({
+            if (item["medicacion"]) {
+                combinedArray.push(...item["medicacion"].map(med => ({
                     type: 'Medicación',
                     name: med.NombreMedicamento,
                     amount: med.CantidadMedicamento,
@@ -30,8 +31,8 @@ const EventList = ({ day, month, year, event }) => {
         });
     
         event.forEach(item => {
-            if (item["vacunacion_medicacion.vacunacion"]) {
-                combinedArray.push(...item["vacunacion_medicacion.vacunacion"].map(vac => ({
+            if (item["vacunacion"]) {
+                combinedArray.push(...item["vacunacion"].map(vac => ({
                     type: 'Vacunación', 
                     name: vac.NombreVacuna,
                     time: formatTime(vac.TimestampVacunacion._seconds),
@@ -46,6 +47,43 @@ const EventList = ({ day, month, year, event }) => {
     
         return combinedArray;
     }
+    const removeItem = async (item) => { //name amount time
+        if (!isEditionActive){
+            return;
+        }
+
+        const eventoABorrarV = event[0]["vacunacion"]?.filter(vac => vac.NombreVacuna === item.name)[0]
+        const eventoABorrarM = event[0]["medicacion"]?.filter(med => med.NombreMedicamento === item.name)[0]
+        
+        const deleteRequest = item.type === "Vacunación" ? {
+            tipoEvento: "vacunacion",
+            diaDeEvento: new Date(eventoABorrarV.TimestampVacunacion._seconds * 1000),
+            nombreVacuna:eventoABorrarV.NombreVacuna,
+        }: {
+            tipoEvento: "medicacion",
+            diaDeEvento: new Date(eventoABorrarM.TimestampMedicacion._seconds * 1000),
+            nombreMedicamento:eventoABorrarM.NombreMedicamento,
+        }
+
+        //diaDeEvento, actividadFisica, alimentacionSaludable, minSueño
+        // Send a POST request to the API route
+        const res = await fetch('https://medicheckapi.vercel.app/evento', { //diaDeEvento, tipoEvento, nombreMedicamento, nombreVacuna 
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(deleteRequest)
+        });
+    
+        const data = await res.json();
+    
+        if (res.ok) {
+            const habitosSaludables = data.habitosSaludables
+          // Save the token in localStorage or cookies and redirect to the protected page
+          //localStorage.setItem('token', data.token);
+        } else {
+          // Display an error message
+          setError(data.message);
+        }
+      };
     const [isEditionActive, setIsEditionActive] = useState(false);
     const [items, setItems] = useState(event? createEvents(event) : [])
     
@@ -58,15 +96,6 @@ const EventList = ({ day, month, year, event }) => {
     const toggleEdition = () => {
         setIsEditionActive(!isEditionActive);
     };
-
-    const removeItem = (itemToRemove) => {
-        if (!isEditionActive){
-            return;
-        }
-        setItems(prevItems => prevItems.filter(item =>
-            !(item.type === itemToRemove.type && item.time === itemToRemove.time && item.details === itemToRemove.details)
-        ));
-    }
 
     return (
         <div className={styles.accordionContainer}>
@@ -85,7 +114,7 @@ const EventList = ({ day, month, year, event }) => {
                         >
                             <div className={styles.accordionHeader}>
                                 <div className={iconoFila} onClick={() => removeItem(value)}></div>
-                                <div className={styles.accordionType}>{value.name}</div>
+                                <div className={styles.accordionType}>{value.name}</div> 
                                 <div className={styles.accordionAmount}>{value.amount}</div>
                                 <div className={styles.accordionTime}>{value.time}</div>
                             </div>

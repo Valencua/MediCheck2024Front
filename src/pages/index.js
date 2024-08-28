@@ -8,8 +8,8 @@ export default function Home() {
         <EventsProvider>
             <div>
                 <Head>
-                    <title>HabitosSaludables PWA</title>
-                    <meta name="description" content="HabitosSaludables PWA with Next.js" />
+                    <title>MediCheck</title>
+                    <meta name="description" content="PWA with Next.js" />
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
 

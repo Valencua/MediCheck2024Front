@@ -20,12 +20,12 @@ const Calendar = () => {
 
     const goToEventsListPage = (day, monthName, monthNumber, year) => {
         const filteredEvent = eventos.filter(item => {
-            return item["vacunacion_medicacion.medicacion"]?.some(med => {
+            return item["medicacion"]?.some(med => {
                 return hayEventoEsteDia(day, monthNumber, year, med.TimestampMedicacion)
-            }) || item["vacunacion_medicacion.vacunacion"]?.some(med => {
+            }) || item["vacunacion"]?.some(med => {
                 return hayEventoEsteDia(day, monthNumber, year, med.TimestampVacunacion)
-            }) || (item["habitos_nosaludables_saludables.no_saludables"] && hayEventoEsteDia(day, monthNumber, year, item["habitos_nosaludables_saludables.no_saludables"].TimestampHabitosNoSaludables))
-            || item["habitos_nosaludables_saludables.saludables"] && hayEventoEsteDia(day, monthNumber, year, item["habitos_nosaludables_saludables.saludables"].TimestampHabitosSaludables)
+            }) || (item["habitos_no_saludables"] && hayEventoEsteDia(day, monthNumber, year, item["habitos_no_saludables"].TimestampHabitosNoSaludables))
+            || item["habitos_saludables"] && hayEventoEsteDia(day, monthNumber, year, item["habitos_saludables"].TimestampHabitosSaludables)
         });
 
         router.push({
@@ -37,7 +37,7 @@ const Calendar = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch('http://localhost:3000/eventos', {
+            const response = await fetch('https://medicheckapi.vercel.app/eventos', {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });

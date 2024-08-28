@@ -106,20 +106,36 @@
     justify-content: flex-start;
 }
 
-.eliminarHabitoSaludable{
-    background-image: url('../../../public/icons/ic_eliminar_habito.svg');
+.botonEdicionInactivo{
+    border: none;
+    cursor: pointer;
+    background-image: url('../../../public/icons/ic_basurero_off.svg');
     background-size: cover;
     background-position: center;
-    width: 2vh;
-    height: 2vh;
+    width: 6vh;
+    height: 6vh;
+    position: fixed;
+    bottom: 14vh;
+    right: 2vh;
 }
-
-.habitosNoSaludables{
-
+.iconoEliminar {
+    background-image: url('../../../public/icons/ic_eliminar.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
 }
-
-.habitosSaludables{
-
+.botonEdicionActivo {
+    border: none;
+    cursor: pointer;
+    background-image: url('../../../public/icons/ic_basurero.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
+    position: fixed;
+    bottom: 14vh;
+    right: 2vh;
 }
 .emptyText {
     background-color: #F7EFED;

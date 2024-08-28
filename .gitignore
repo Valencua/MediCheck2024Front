@@ -73,3 +73,4 @@ temp/
 # TypeScript build output
 *.tsbuildinfo
 dist/
+.vercel

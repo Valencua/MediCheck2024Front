@@ -18,7 +18,7 @@ const SignIn = () => {
         e.preventDefault();
     
         try{
-            const res = await fetch('http://localhost:3000/register', {
+            const res = await fetch('https://medicheckapi.vercel.app/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

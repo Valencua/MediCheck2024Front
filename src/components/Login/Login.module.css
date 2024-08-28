@@ -85,13 +85,33 @@
     font-size: 2.3vh!important;
     height: 5vh;
 }
+.buttonGoogleModal{
+    font-family: "Baloo 2", sans-serif !important;
+    font-weight: 600 !important;
+    width: 32vh !important;
+    background-color: transparent !important;
+    color: #837F85 !important;
+    border-radius: 1vh !important;
+    text-transform: capitalize !important;
+    font-size: 2.3vh !important;
+    height: 5vh;
+    border: solid #9B999C 0.3vh;
+}
 .buttonContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 22vh;
-    gap: 3vh;
+    height: 24vh;
+    gap: 2.5vh;
+}
+.LogoGoogle{
+    background-image: url('../../../public/icons/google.svg');
+    background-size: cover;
+    background-position: center;
+    width: 4vh;
+    height: 4vh;
+    margin-right: 1vh;
 }
 .icon{
     background-image: url('../../../public/icons/Logo.svg');

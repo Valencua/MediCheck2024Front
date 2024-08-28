@@ -1,28 +1,25 @@
 import Head from "next/head";
 import HabitosSaludablesNavBar from "../components/HabitosSaludablesNavBar/HabitosSaludablesNavBar";
 import HabitosSaludables from "../components/HabitosSaludables/HabitosSaludables";
-import {useRouter} from "next/router";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import HabitosNoSaludablesModal from "../components/HabitosNoSaludablesModal/HabitosNoSaludablesModal";
 import HabitosSaludablesModal from "../components/HabitosSaludablesModal/HabitosSaludablesModal";
 
-
-export default function HabitosSaludablesPage() {
-
-
-    const [habitosSaludables, setHabitosSaludables] = useState([
-        {type: 'dormir', texto: 'Este día dormiste 8 horas'},
-        {type: 'alimento', texto: 'Este día comiste saludable'},
-        {type: 'ejercicio', texto: 'Este día hiciste ejercicio'},
-    ]);
-    const [habitosNoSaludables, setHabitosNoSaludables] = useState([
-        {type: 'alcohol', texto: 'Este día ingeriste alcohol'},
-        {type: 'fumar', texto: 'Este día fumaste'},
-    ]);
-
-
+export default function HabitosSaludablesPage({ day, month, year, event }) {
     const [isHabitosNoSaludablesModalOpen, setIsHabitosNoSaludablesModalOpen] = useState(false);
     const [isHabitosSaludablesModalOpen, setIsHabitosSaludablesModalOpen] = useState(false);
+    const [jsonEvent, setJsonEvent] = useState(null);
+
+    useEffect(() => {
+        if (event) {
+            try {
+                console.log("Event received:", event);
+                setJsonEvent(event);
+            } catch (error) {
+                console.error("Failed to parse event JSON:", error);
+            }
+        }
+    }, [event]);
 
     const handleHabitosNoSaludablesModalOpen = () => {
         setIsHabitosNoSaludablesModalOpen(true);
@@ -31,6 +28,7 @@ export default function HabitosSaludablesPage() {
     const handleCloseHabitosNoSaludablesModal = () => {
         setIsHabitosNoSaludablesModalOpen(false);
     };
+
     const handleHabitosSaludablesModalOpen = () => {
         setIsHabitosSaludablesModalOpen(true);
     };
@@ -39,9 +37,6 @@ export default function HabitosSaludablesPage() {
         setIsHabitosSaludablesModalOpen(false);
     };
 
-
-    const router = useRouter();
-    const { day, month, year, event } = router.query;
     return (
         <div>
             <Head>
@@ -55,10 +50,7 @@ export default function HabitosSaludablesPage() {
                     day={day}
                     month={month}
                     year={year}
-                    event={JSON.parse(event)}
-                    habitosSaludables={habitosSaludables}
-                    habitosNoSaludables={habitosNoSaludables}
-                    
+                    event={jsonEvent}
                 />
             </main>
             <HabitosSaludablesNavBar
@@ -66,8 +58,36 @@ export default function HabitosSaludablesPage() {
                 showHabitosSaludablesPopUp={handleHabitosSaludablesModalOpen}
             />
 
-            <HabitosNoSaludablesModal isOpen={isHabitosNoSaludablesModalOpen} handleClose={handleCloseHabitosNoSaludablesModal}  />
-            <HabitosSaludablesModal isOpen={isHabitosSaludablesModalOpen} handleClose={handleCloseHabitosSaludablesModal} />
+            <HabitosNoSaludablesModal 
+                isOpen={isHabitosNoSaludablesModalOpen} 
+                handleClose={handleCloseHabitosNoSaludablesModal} 
+            />
+            <HabitosSaludablesModal 
+                isOpen={isHabitosSaludablesModalOpen} 
+                handleClose={handleCloseHabitosSaludablesModal} 
+            />
         </div>
     );
+}
+
+export async function getServerSideProps(context) {
+    const { day, month, year, event } = context.query;
+
+    let eventData = null;
+    if (event) {
+        try {
+            eventData = JSON.parse(event);
+        } catch (error) {
+            console.error("Failed to parse event JSON in getServerSideProps:", error);
+        }
+    }
+
+    return {
+        props: {
+            day: day || null,
+            month: month || null,
+            year: year || null,
+            event: eventData,
+        },
+    };
 }
