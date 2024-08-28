@@ -52,7 +52,7 @@ export default function EventListPage() {
             <main>
                 <EventList day={day} month={month} year={year} event={jsonEvent}/>
             </main>
-            <EventListBottomNavBar showMedicamentosPopUp={handleMedicacionModalOpen} showVacunacionPopUp={handleVacunacionModalOpen}  day={day} month={month} year={year} event={JSON.parse(event)}/>
+            <EventListBottomNavBar showMedicamentosPopUp={handleMedicacionModalOpen} showVacunacionPopUp={handleVacunacionModalOpen}  day={day} month={month} year={year} event={event}/>
 
             <MedicationModal isOpen={isMedicacionModalOpen} handleClose={handleCloseMedicacionModal} />
             <VacunacionModal isOpen={isVacunacionModalOpen} handleClose={handleCloseVacunacionModal} />

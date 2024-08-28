@@ -1,5 +1,5 @@
 // src/HabitosSaludables.js
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -12,14 +12,16 @@ const formatTime = (seconds) => {
     return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: true });
 };
 
-
 const EventList = ({ day, month, year, event }) => {
     
     const createEvents = (event) => {
+        if (!Array.isArray(event)) return [];
+    
         const combinedArray = [];
+    
         event.forEach(item => {
-            if (item["medicacion"]) {
-                combinedArray.push(...item["medicacion"].map(med => ({
+            if (item?.medicacion) {
+                combinedArray.push(...item.medicacion.map(med => ({
                     type: 'Medicación',
                     name: med.NombreMedicamento,
                     amount: med.CantidadMedicamento,
@@ -31,8 +33,8 @@ const EventList = ({ day, month, year, event }) => {
         });
     
         event.forEach(item => {
-            if (item["vacunacion"]) {
-                combinedArray.push(...item["vacunacion"].map(vac => ({
+            if (item?.vacunacion) {
+                combinedArray.push(...item.vacunacion.map(vac => ({
                     type: 'Vacunación', 
                     name: vac.NombreVacuna,
                     time: formatTime(vac.TimestampVacunacion._seconds),
@@ -46,28 +48,37 @@ const EventList = ({ day, month, year, event }) => {
         combinedArray.forEach(item => delete item.timestamp);
     
         return combinedArray;
-    }
+    };
+
+    const [isEditionActive, setIsEditionActive] = useState(false);
+    const [items, setItems] = useState(event ? createEvents(event) : []);
+    
+    useEffect(() => {
+        if (event) {
+            setItems(createEvents(event));
+        }
+    }, [event]); // Run this effect whenever `event` changes
+
     const removeItem = async (item) => { //name amount time
         if (!isEditionActive){
             return;
         }
 
-        const eventoABorrarV = event[0]["vacunacion"]?.filter(vac => vac.NombreVacuna === item.name)[0]
-        const eventoABorrarM = event[0]["medicacion"]?.filter(med => med.NombreMedicamento === item.name)[0]
+        const eventoABorrarV = event[0]["vacunacion"]?.filter(vac => vac.NombreVacuna === item.name)[0];
+        const eventoABorrarM = event[0]["medicacion"]?.filter(med => med.NombreMedicamento === item.name)[0];
         
         const deleteRequest = item.type === "Vacunación" ? {
             tipoEvento: "vacunacion",
             diaDeEvento: new Date(eventoABorrarV.TimestampVacunacion._seconds * 1000),
-            nombreVacuna:eventoABorrarV.NombreVacuna,
-        }: {
+            nombreVacuna: eventoABorrarV.NombreVacuna,
+        } : {
             tipoEvento: "medicacion",
             diaDeEvento: new Date(eventoABorrarM.TimestampMedicacion._seconds * 1000),
-            nombreMedicamento:eventoABorrarM.NombreMedicamento,
-        }
+            nombreMedicamento: eventoABorrarM.NombreMedicamento,
+        };
 
-        //diaDeEvento, actividadFisica, alimentacionSaludable, minSueño
-        // Send a POST request to the API route
-        const res = await fetch('https://medicheckapi.vercel.app/evento', { //diaDeEvento, tipoEvento, nombreMedicamento, nombreVacuna 
+        // Send a DELETE request to the API route
+        const res = await fetch('https://medicheckapi.vercel.app/evento', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(deleteRequest)
@@ -76,17 +87,15 @@ const EventList = ({ day, month, year, event }) => {
         const data = await res.json();
     
         if (res.ok) {
-            const habitosSaludables = data.habitosSaludables
-          // Save the token in localStorage or cookies and redirect to the protected page
-          //localStorage.setItem('token', data.token);
+            //const habitosSaludables = data.habitosSaludables;
+            // Save the token in localStorage or cookies and redirect to the protected page
+            // localStorage.setItem('token', data.token);
         } else {
-          // Display an error message
-          setError(data.message);
+            // Display an error message
+            setError(data.message);
         }
-      };
-    const [isEditionActive, setIsEditionActive] = useState(false);
-    const [items, setItems] = useState(event? createEvents(event) : [])
-    
+    };
+
     const router = useRouter(); 
 
     const goBack = () => {
@@ -100,7 +109,7 @@ const EventList = ({ day, month, year, event }) => {
     return (
         <div className={styles.accordionContainer}>
             <div className={styles.accordionPageHeader}>
-                <div className={styles.flechaBack}  onClick={goBack}></div>
+                <div className={styles.flechaBack} onClick={goBack}></div>
                 <div className={styles.accordionPageHeaderDate}>{day} de {month} {year}</div>
             </div>
             {items.map((value, index) => {
