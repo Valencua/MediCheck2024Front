@@ -1,12 +1,11 @@
-// src/components/Calendar.js
 import React, { useState, useEffect } from 'react';
 import styles from './Calendar.module.css';
 import { useRouter } from 'next/router';
 import {useEvents} from '../../utils/EventsProvider';
 
 const Calendar = () => {
-    const [date, setDate] = useState(new Date()); // Start with the current month
-    const today = new Date(); // Get the current date
+    const [date, setDate] = useState(new Date());
+    const today = new Date();
     const router = useRouter();
     const [eventos, setEventos] = useState(null);
     const {events, setEvents} = useEvents()
@@ -45,7 +44,6 @@ const Calendar = () => {
               throw new Error('Network response was not ok');
             }
             const result = await response.json();
-            //setEvents(result)
             setEventos(result);
           } catch (error) {
             console.log(error)
@@ -73,14 +71,23 @@ const Calendar = () => {
         setDate(new Date(date.getFullYear(), date.getMonth() + 1));
     };
 
+    const hasEventOnDay = (day, month, year) => {
+        if (!eventos) return false;
+        return eventos.some(item => {
+            return item["medicacion"]?.some(med => hayEventoEsteDia(day, month, year, med.TimestampMedicacion)) ||
+                   item["vacunacion"]?.some(med => hayEventoEsteDia(day, month, year, med.TimestampVacunacion)) ||
+                   (item["habitos_no_saludables"] && hayEventoEsteDia(day, month, year, item["habitos_no_saludables"].TimestampHabitosNoSaludables)) ||
+                   (item["habitos_saludables"] && hayEventoEsteDia(day, month, year, item["habitos_saludables"].TimestampHabitosSaludables));
+        });
+    };
+
     const renderCalendarDates = () => {
         const daysInMonth = getDaysInMonth(date.getFullYear(), date.getMonth());
         const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
         const previousMonthDays = getDaysInMonth(date.getFullYear(), date.getMonth() - 1);
         const dates = [];
-        const dayOffset = (firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1); // Adjust for Monday start
+        const dayOffset = (firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1);
 
-        // Fill the empty cells at the beginning with the last days of the previous month
         for (let i = dayOffset - 1; i >= 0; i--) {
             dates.push(
                 <div key={`prev-empty-${i}`} className={styles.calendarDateEmpty}>
@@ -90,13 +97,14 @@ const Calendar = () => {
             );
         }
 
-        // Fill the cells with the days of the current month
         for (let i = 1; i <= daysInMonth; i++) {
             const isToday = (
                 i === today.getDate() &&
                 date.getMonth() === today.getMonth() &&
                 date.getFullYear() === today.getFullYear()
             );
+
+            const hasEvent = hasEventOnDay(i, date.getMonth(), date.getFullYear());
 
             dates.push(
                 <div key={i} className={`${styles.calendarDate} ${isToday ? styles.today : ''}`} onClick={() => goToEventsListPage(i, months[date.getMonth()], date.getMonth(), date.getFullYear())}>
@@ -105,7 +113,9 @@ const Calendar = () => {
                             {i}
                         </div>
                     </div>
-                    <div className={styles.dateContent}></div>
+                    <div className={styles.dateContent}>
+                        {hasEvent && (<div className={styles.dateActiveEvent}></div>)}
+                    </div>
                 </div>
             );
         }
@@ -137,7 +147,7 @@ const Calendar = () => {
             </header>
             <div className={styles.calendarGrid}>
                 {daysOfWeek.map((day, index) => {
-                    const isCurrentDay = isCurrentMonth && index === (today.getDay() === 0 ? 6 : today.getDay() - 1); // Adjust for Monday start
+                    const isCurrentDay = isCurrentMonth && index === (today.getDay() === 0 ? 6 : today.getDay() - 1);
                     return (
                         <div key={day} className={`${styles.calendarDay} ${isCurrentDay ? styles.currentDay : ''}`}>
                             {day}

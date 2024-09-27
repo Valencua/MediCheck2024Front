@@ -5,6 +5,8 @@ import {useRouter} from "next/router";
 import { TextField, Button, Box, Typography, InputAdornment, IconButton } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { signInWithPopup, auth, provider } from '../../utils/firebase';
+
 
 const SignIn = () => {
 
@@ -14,6 +16,35 @@ const SignIn = () => {
     const [email, setEmail] = useState(''); 
     const [showPassword, setShowPassword] = useState(false); 
 
+    const handleSignIn = async () => {
+        try {
+          const result = await signInWithPopup(auth, provider);
+          const user = result.user;
+    
+          // Get the ID token
+          const idToken = await user.getIdToken();
+          const res = await fetch('https://medicheckapi.vercel.app/login-google', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    tokenId: idToken
+                })
+            });
+        
+            const data = await res.json();
+        
+            if (res.ok) {
+                // Save the token in localStorage or cookies and redirect to the protected page
+                localStorage.setItem('token', data.token);
+                router.push('/calendar');
+            } else {
+                // Display an error message
+                setError(data.message);
+            }   
+        } catch (error) {
+          console.error(error);
+        }
+      };
     const handleSubmit = async (e) => {
         e.preventDefault();
     
@@ -152,6 +183,19 @@ const SignIn = () => {
                         }}
                     />
                 </div>
+            </Box>
+            <Box className={styles.buttonContainer2}>
+                <Button className={styles.buttonPaciente} variant="contained" color="primary" onClick={handleSubmit} fullWidth>
+                    Paciente
+                </Button>
+                <Button className={styles.buttonMedico} variant="contained" color="primary" onClick={handleSubmit} fullWidth>
+                    Médico
+                </Button>
+            </Box>
+            <Box className={styles.buttonContainer3}>
+            <Button className={styles.buttonGoogleModal} variant="contained" color="primary" onClick={handleSignIn} fullWidth><div className={styles.LogoGoogle}></div>
+                    Register with Google
+                </Button>
             </Box>
             <Box className={styles.buttonContainer}>
                 <Button className={styles.buttonModal} variant="contained" color="primary" onClick={handleSubmit} fullWidth>

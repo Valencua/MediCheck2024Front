@@ -102,7 +102,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 24vh;
+    height: 20vh;
     gap: 2.5vh;
 }
 .LogoGoogle{
@@ -164,3 +164,27 @@
     height: 3vh;
 
 }
+
+.inputIncorrect {
+    color: #a16068;
+    text-shadow: 0.5px 0.5px 1px #a16068; 
+  }
+  
+  .inputIncorrect input {
+    color: #FF0000;
+  }
+  
+  .inputIncorrect .MuiOutlinedInput-notchedOutline {
+    border-color: #794c55;
+  }
+
+
+  .LogoContainer.error .userLogo,
+  .LogoContainer.error .lockIcon {
+      filter: brightness(0) saturate(100%) invert(34%) sepia(10%) saturate(1009%) hue-rotate(314deg) brightness(92%) contrast(89%);
+  }
+  
+  .userLogo,
+  .lockIcon {
+      transition: filter 0.3s ease;
+  }

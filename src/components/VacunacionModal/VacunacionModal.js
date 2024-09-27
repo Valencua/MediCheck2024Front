@@ -9,7 +9,7 @@ import styles from './VacunacionModal.module.css';
 
 const VacunacionModal = ({ isOpen, handleClose }) => {
     const [name, setName] = useState('');
-    const [date, setDate] = useState(new Date('2024-03-07T16:00:00'));
+    const [date, setDate] = useState(new Date());
     const [notes, setNotes] = useState('');
 
     const handleSubmit = async (e) => {
