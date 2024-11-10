@@ -5,8 +5,15 @@ import { useRouter } from "next/router";
 import { TextField, Button, Box, Typography, InputAdornment, IconButton } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { signInWithPopup, auth, provider } from '../../utils/firebase';
+import { signInWithPopup, auth, provider, signInWithEmailAndPassword } from '../../utils/firebase';
 import { createTheme } from '@mui/material/styles';
+
+async function loginWithFirebase(email, password) {
+    debugger
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const token = await userCredential.user?.getIdToken();
+    return token;
+}
 
 const Login = () => {
     const theme = createTheme({
@@ -38,7 +45,7 @@ const Login = () => {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
             const idToken = await user.getIdToken();
-            const res = await fetch('https://medicheckapi.vercel.app/login-google', {
+            const res = await fetch('http://localhost:3000/login-google', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -80,11 +87,15 @@ const Login = () => {
         }
 
         try {
-            const res = await fetch('https://medicheckapi.vercel.app/login', {
+            const authToken = await loginWithFirebase(name, pass)
+            const res = await fetch('http://localhost:3000/login', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                 },
                 body: JSON.stringify({
-                    nombreUsuario: name,
+                    correoElectronico: name,
                     contraseña: pass
                 })
             });
@@ -92,7 +103,7 @@ const Login = () => {
             const data = await res.json();
         
             if (res.ok) {
-                localStorage.setItem('token', data.token);
+                localStorage.setItem('token', authToken);
                 router.push('/calendar');
             } else {
                 setNameError(true);

@@ -77,11 +77,14 @@ const EventList = ({ day, month, year, event }) => {
             diaDeEvento: new Date(eventoABorrarM.TimestampMedicacion._seconds * 1000),
             nombreMedicamento: eventoABorrarM.NombreMedicamento,
         };
+        const token = localStorage.getItem('token');
 
-        // Send a DELETE request to the API route
-        const res = await fetch('https://medicheckapi.vercel.app/evento', {
+        const res = await fetch('http://localhost:3000/evento', {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+              },
             body: JSON.stringify(deleteRequest)
         });
     

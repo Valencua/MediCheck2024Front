@@ -35,10 +35,15 @@ const Calendar = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+          const token = localStorage.getItem('token');
+          console.log(token)
           try {
-            const response = await fetch('https://medicheckapi.vercel.app/eventos', {
+            const response = await fetch('http://localhost:3000/eventos', {
                 method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                  },
             });
             if (!response.ok) {
               throw new Error('Network response was not ok');

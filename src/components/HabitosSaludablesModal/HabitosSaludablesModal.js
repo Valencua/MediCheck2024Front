@@ -7,7 +7,7 @@ import 'rsuite/dist/rsuite.min.css';
 import styles from './HabitosSaludablesModal.module.css';
 
 const HabitosNoSaludablesModal = ({ isOpen, handleClose, agregarAlimentar }) => {
-    const [date, setDate] = useState(new Date('2024-03-07T16:00:00'));
+    const [date, setDate] = useState(new Date());
     const [comidaSaludable, setComidaSaludable] = useState(false);
     const [ejercicio, setEjercicio] = useState(false);
     const [dormir, setDormir] = useState(false);
@@ -25,9 +25,14 @@ const HabitosNoSaludablesModal = ({ isOpen, handleClose, agregarAlimentar }) => 
         e.preventDefault();
         //diaDeEvento, actividadFisica, alimentacionSaludable, minSueño
         // Send a POST request to the API route
-        const res = await fetch('https://medicheckapi.vercel.app/habitos-saludables', {
+        const authToken = localStorage.getItem('token');
+
+        const res = await fetch('http://localhost:3000/habitos-saludables', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+             },
             body: JSON.stringify({
                 alimentacionSaludable: comidaSaludable,
                 actividadFisica: ejercicio || '',

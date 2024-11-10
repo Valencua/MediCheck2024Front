@@ -5,7 +5,18 @@ import {useRouter} from "next/router";
 import { TextField, Button, Box, Typography, InputAdornment, IconButton } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { signInWithPopup, auth, provider } from '../../utils/firebase';
+import { signInWithPopup, auth, provider, createUserWithEmailAndPassword } from '../../utils/firebase';
+
+async function registerWithFirebase(email, password) {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const token = await userCredential.user?.getIdToken();
+        return token;
+    } catch (error) {
+        console.error("Registration error:", error);
+        throw error;
+    }
+}
 
 
 const SignIn = () => {
@@ -14,6 +25,7 @@ const SignIn = () => {
     const [name, setName] = useState('');
     const [pass, setPass] = useState('');
     const [email, setEmail] = useState(''); 
+    const [rol, setRol] = useState(''); 
     const [showPassword, setShowPassword] = useState(false); 
 
     const handleSignIn = async () => {
@@ -23,7 +35,7 @@ const SignIn = () => {
     
           // Get the ID token
           const idToken = await user.getIdToken();
-          const res = await fetch('https://medicheckapi.vercel.app/login-google', {
+          const res = await fetch('http://localhost:3000/login-google', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -47,22 +59,26 @@ const SignIn = () => {
       };
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+        const userToken = await registerWithFirebase(email, pass)
         try{
-            const res = await fetch('https://medicheckapi.vercel.app/register', {
+            const res = await fetch('http://localhost:3000/register', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`
+                },
                 body: JSON.stringify({
                     nombreUsuario: name,
                     correoElectronico: email,
-                    contraseña: pass
+                    contraseña: pass, 
+                    rol
                 })
             });
 
             const data = await res.json();
         
             if (res.ok) {
-                localStorage.setItem('token', data.token);
+                localStorage.setItem('token', userToken);
                 router.push('/calendar');
             } else {
                 setError(data.message);
@@ -79,6 +95,14 @@ const SignIn = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+    
+    const handleSetRolAsPatient = () => {
+        setRol("patient"); 
+    };
+    const handleSetRolAsDoctor = () => {
+        setRol("doctor"); 
+    };
+
     return (
         <Box className={styles.loginContainer}> 
             <Box className={styles.containerWithBordersTitle}>
@@ -185,10 +209,10 @@ const SignIn = () => {
                 </div>
             </Box>
             <Box className={styles.buttonContainer2}>
-                <Button className={styles.buttonPaciente} variant="contained" color="primary" onClick={handleSubmit} fullWidth>
+                <Button className={styles.buttonPaciente} variant="contained" color="primary" onClick={handleSetRolAsPatient} fullWidth>
                     Paciente
                 </Button>
-                <Button className={styles.buttonMedico} variant="contained" color="primary" onClick={handleSubmit} fullWidth>
+                <Button className={styles.buttonMedico} variant="contained" color="primary" onClick={handleSetRolAsDoctor} fullWidth>
                     Médico
                 </Button>
             </Box>

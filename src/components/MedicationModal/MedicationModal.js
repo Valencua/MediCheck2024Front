@@ -9,16 +9,19 @@ import styles from './MedicationModal.module.css';
 const MedicationModal = ({ isOpen, handleClose }) => {
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('1 pastilla');
-    const [date, setDate] = useState(new Date('2024-03-07T16:00:00'));
+    const [date, setDate] = useState(new Date());
     const [notes, setNotes] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+        const authToken = localStorage.getItem('token');
         // Send a POST request to the API route
-        const res = await fetch('https://medicheckapi.vercel.app/medicacion', {
+        const res = await fetch('http://localhost:3000/medicacion', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+            },
             body: JSON.stringify({
                 nombreMedicamento: name,
                 cantidadMedicamento: quantity,

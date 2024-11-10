@@ -14,11 +14,14 @@ const VacunacionModal = ({ isOpen, handleClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+        const authToken = localStorage.getItem('token');
         // Send a POST request to the API route
-        const res = await fetch('https://medicheckapi.vercel.app/vacuna', {
+        const res = await fetch('http://localhost:3000/vacuna', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+            },
             body: JSON.stringify({
                 nombreVacuna: name,
                 notasVacunacion: notes || '',
