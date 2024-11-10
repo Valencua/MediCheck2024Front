@@ -1,62 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Calendar.module.css';
 import { useRouter } from 'next/router';
-import {useEvents} from '../../utils/EventsProvider';
+import { useEvents } from '../../utils/EventsProvider';
 
 const Calendar = () => {
     const [date, setDate] = useState(new Date());
     const today = new Date();
     const router = useRouter();
     const [eventos, setEventos] = useState(null);
-    const {events, setEvents} = useEvents()
+    const { events, setEvents } = useEvents();
 
     const hayEventoEsteDia = (day, month, year, timestamp) => {
         const date = new Date(timestamp._seconds * 1000);
         return date.getDate() === day &&
                date.getMonth() === month &&
                date.getFullYear() === year;
-    }
+    };
 
     const goToEventsListPage = (day, monthName, monthNumber, year) => {
         const filteredEvent = eventos.filter(item => {
             return item["medicacion"]?.some(med => {
-                return hayEventoEsteDia(day, monthNumber, year, med.TimestampMedicacion)
+                return hayEventoEsteDia(day, monthNumber, year, med.TimestampMedicacion);
             }) || item["vacunacion"]?.some(med => {
-                return hayEventoEsteDia(day, monthNumber, year, med.TimestampVacunacion)
+                return hayEventoEsteDia(day, monthNumber, year, med.TimestampVacunacion);
             }) || (item["habitos_no_saludables"] && hayEventoEsteDia(day, monthNumber, year, item["habitos_no_saludables"].TimestampHabitosNoSaludables))
-            || item["habitos_saludables"] && hayEventoEsteDia(day, monthNumber, year, item["habitos_saludables"].TimestampHabitosSaludables)
+            || (item["habitos_saludables"] && hayEventoEsteDia(day, monthNumber, year, item["habitos_saludables"].TimestampHabitosSaludables));
         });
 
         router.push({
             pathname: '/event-list',
-            query: { day: day, month: monthName, year:year, event:JSON.stringify(filteredEvent) },
+            query: { day, month: monthName, year, event: JSON.stringify(filteredEvent) },
         });
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-          const token = localStorage.getItem('token');
-          console.log(token)
-          try {
-            const response = await fetch('http://localhost:3000/eventos', {
+    const fetchData = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch('https://medicheckapi.vercel.app/eventos', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
-                  },
+                },
             });
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
+            if (!response.ok) throw new Error('Network response was not ok');
             const result = await response.json();
             setEventos(result);
-          } catch (error) {
-            console.log(error)
-          }
-        };
-    
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
         fetchData();
-      }, []); 
+        const handleRouteChange = (url) => {
+            if (url === '/calendar') fetchData();
+        };
+
+        router.events.on('routeChangeComplete', handleRouteChange);
+
+        return () => {
+            router.events.off('routeChangeComplete', handleRouteChange);
+        };
+    }, [router]);
 
     const daysOfWeek = ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'];
     const months = [
