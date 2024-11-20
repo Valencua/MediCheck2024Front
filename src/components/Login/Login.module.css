@@ -121,11 +121,11 @@
     height: 17vh;
 }
 .userLogo{
-    background-image: url('../../../public/icons/User.svg');
+    background-image: url('../../../public/icons/Mail.svg');
     background-size: cover;
     background-position: center;
-    width: 3vh;
-    height: 3vh;
+    width: 2.36vh;
+    height: 2vh;
 }
 .lockIcon{
     background-image: url('../../../public/icons/Candado.svg');
@@ -160,7 +160,7 @@
     background-image: url('../../../public/icons/LogoText.svg');
     background-size: cover;
     background-position: center;
-    width: 21vh;
+    width: 21.3vh;
     height: 3vh;
 
 }
@@ -181,7 +181,7 @@
 
   .LogoContainer.error .userLogo,
   .LogoContainer.error .lockIcon {
-      filter: brightness(0) saturate(100%) invert(34%) sepia(10%) saturate(1009%) hue-rotate(314deg) brightness(92%) contrast(89%);
+      filter: brightness(0) saturate(100%) invert(34%) sepia(-1%) saturate(1009%) hue-rotate(314deg) brightness(92%) contrast(89%);
   }
   
   .userLogo,

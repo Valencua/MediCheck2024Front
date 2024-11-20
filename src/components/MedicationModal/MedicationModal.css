@@ -1,5 +1,10 @@
 /* VacunacionModal.css */
-
+.css-igs3ac{ /*bordes feos*/
+    border-color: 0!important;
+}
+.css-1ald77x.Mui-focused{
+    color: rgba(0, 0, 0, 0.87); 
+}
 .rs-picker-popup.rs-picker-popup-date{
     z-index: 99999!important;
 }

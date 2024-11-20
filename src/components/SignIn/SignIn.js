@@ -35,7 +35,7 @@ const SignIn = () => {
     
           // Get the ID token
           const idToken = await user.getIdToken();
-          const res = await fetch('https://medicheckapi.vercel.app/login-google', {
+          const res = await fetch('http://localhost:3000/login-google', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -61,7 +61,7 @@ const SignIn = () => {
         e.preventDefault();
         const userToken = await registerWithFirebase(email, pass)
         try{
-            const res = await fetch('https://medicheckapi.vercel.app/register', {
+            const res = await fetch('http://localhost:3000/register', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',

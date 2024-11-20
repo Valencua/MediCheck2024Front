@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import styles from './Calendar.module.css';
+import styles from './CalendarDoctor.module.css';
 import { useRouter } from 'next/router';
 import { useEvents } from '../../utils/EventsProvider';
 
-const Calendar = () => {
+const CalendarDoctor = ({patientID}) => {
     const [date, setDate] = useState(new Date());
     const today = new Date();
     const router = useRouter();
@@ -35,7 +35,7 @@ const Calendar = () => {
     const fetchData = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch('http://localhost:3000/eventos', {
+            const response = await fetch(`http://localhost:3000/patient/${patientID}/eventos`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ const Calendar = () => {
     useEffect(() => {
         fetchData();
         const handleRouteChange = (url) => {
-            if (url === '/calendar') fetchData();
+            if (url === '/calendar-doctor') fetchData();
         };
 
         router.events.on('routeChangeComplete', handleRouteChange);
@@ -170,4 +170,4 @@ const Calendar = () => {
     );
 };
 
-export default Calendar;
+export default CalendarDoctor;

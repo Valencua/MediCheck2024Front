@@ -1,0 +1,134 @@
+/* src/AccordionList.css */
+
+.modalTitle{
+    font-family: "Baloo 2", sans-serif;
+    font-size: 3vh;
+    font-weight: 700;
+    color: #102538;
+    text-shadow: 0.5px 0.5px 1px #102538, -0.5px -0.5px 1px #102538, 0.5px -0.5px 1px #102538, -0.5px 0.5px 1px #102538;
+    height: 3vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.patientDataContainer{
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    width: 22vh;
+}
+.containerWithBordersTitle{
+    border-bottom: 0.2vh solid #50535A80;
+    height: 13vh;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    margin-left: 1vh;
+    margin-right: 1vh;
+    width: 100%;
+}
+.accordionHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.iconoAvatar{
+    background-image: url('../../../public/icons/patient_icon.svg');
+    background-size: cover;
+    background-position: center;
+    width:  7vh;
+    height: 7vh;
+}
+.iconoCalendar{
+    background-image: url('../../../public/icons/green_calendar.svg');
+    background-size: cover;
+    background-position: center;
+    width: 6vh;
+    height: 6vh;
+}
+
+.accordionContainer{
+    background-color: #F7EFED;
+    margin-left: 2vh;
+    margin-right: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2vh
+}
+
+.accordionPageHeader{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 30vh;
+    height: 10vh;
+    background-color: #F7EFED;
+}
+
+.accordionListContainer{
+    background-color: #F7EFED;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-bottom: 0.2vh solid #50535A80;
+    padding-bottom: 1.5vh;
+}
+
+.accordionPageHeaderDate {
+    font-family: "Baloo 2", sans-serif;
+    font-size: 3vh;
+    font-weight: 1000;
+    text-align: center;
+    text-shadow: 0.5px 0.5px 1px rgba(16, 37, 56, 0.7), -0.5px -0.5px 1px rgba(16, 37, 56, 0.7), 0.5px -0.5px 1px rgba(16, 37, 56, 0.7), -0.5px 0.5px 1px rgba(16, 37, 56, 0.7);
+    color: rgba(16, 37, 56, 0.9);
+}
+
+.accordionType{
+    font-family: "Baloo 2", sans-serif;
+    font-size: 2.2vh;
+    font-weight: 600;
+    color:#616B77;
+}
+.accordionAmount {
+    font-family: "Baloo 2", sans-serif;
+    font-size: 2vh;
+    color: #616B77;
+    min-width: 6vh;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+.accordionTime{
+    font-family: "Baloo 2", sans-serif;
+    font-size: 3vh;
+    font-weight: 600;
+    color: #005669;
+    min-width: 12vh;
+    text-align: right;
+}
+
+.accordionDetails{
+    font-family: "Baloo 2", sans-serif;
+    font-size: 2.2vh;
+    font-weight: 400;
+    color: #3E4D5CB2;
+    min-width: 12vh;
+    display: flex;
+    justify-content: center;
+    text-align: left;
+    padding-left: 5vh;
+    padding-right: 5vh;
+}
+
+
+

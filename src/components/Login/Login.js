@@ -9,7 +9,6 @@ import { signInWithPopup, auth, provider, signInWithEmailAndPassword } from '../
 import { createTheme } from '@mui/material/styles';
 
 async function loginWithFirebase(email, password) {
-    debugger
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const token = await userCredential.user?.getIdToken();
     return token;
@@ -45,7 +44,7 @@ const Login = () => {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
             const idToken = await user.getIdToken();
-            const res = await fetch('https://medicheckapi.vercel.app/login-google', {
+            const res = await fetch('http://localhost:3000/login-google', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -56,7 +55,9 @@ const Login = () => {
             const data = await res.json();
         
             if (res.ok) {
+                if (user)
                 localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data));
                 router.push('/calendar');
             } else {
                 setErrorMessage(data.message);
@@ -76,7 +77,7 @@ const Login = () => {
 
         if (!name) {
             setNameError(true);
-            setErrorMessage('Ingrese nombre');
+            setErrorMessage('Ingrese mail');
             return;
         }
 
@@ -88,7 +89,7 @@ const Login = () => {
 
         try {
             const authToken = await loginWithFirebase(name, pass)
-            const res = await fetch('https://medicheckapi.vercel.app/login', {
+            const res = await fetch('http://localhost:3000/login', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -103,8 +104,19 @@ const Login = () => {
             const data = await res.json();
         
             if (res.ok) {
-                localStorage.setItem('token', authToken);
-                router.push('/calendar');
+                if (data.rol == 'patient')
+                {
+                    localStorage.setItem('token', authToken);
+                    localStorage.setItem('user', JSON.stringify(data));
+                    router.push('/calendar');
+                }
+                else if (data.rol == 'doctor')
+                    {
+                        localStorage.setItem('token', authToken);
+                        localStorage.setItem('user', JSON.stringify(data));
+                        router.push('/patient-list');
+                    }
+                
             } else {
                 setNameError(true);
                 setPassError(true);
@@ -141,7 +153,7 @@ const Login = () => {
             </Box>
             <Box className={`${styles.containerWithBordersName} ${nameError ? styles.inputIncorrect : ''}`}>
                 <div className={styles.containerUserLabel}>
-                    <Typography variant="h6" className={`${styles.labelUser} ${nameError ? styles.inputIncorrect : ''}`}>Nombre Completo</Typography>
+                    <Typography variant="h6" className={`${styles.labelUser} ${nameError ? styles.inputIncorrect : ''}`}>Mail</Typography>
                 </div>
                 <div className={styles.containerUserInputUser}>
                     <TextField

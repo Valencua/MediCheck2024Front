@@ -56,8 +56,8 @@ const HabitosSaludables = ({ day, month, year, event }) => {
         };
 
         const path = item.type === "habitos_saludables"
-            ? 'https://medicheckapi.vercel.app/habitos-saludables'
-            : 'https://medicheckapi.vercel.app/habitos-no-saludables';
+            ? 'http://localhost:3000/habitos-saludables'
+            : 'http://localhost:3000/habitos-no-saludables';
         
         const authToken = localStorage.getItem('token');
 

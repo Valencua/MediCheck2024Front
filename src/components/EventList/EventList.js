@@ -79,7 +79,7 @@ const EventList = ({ day, month, year, event }) => {
         };
         const token = localStorage.getItem('token');
 
-        const res = await fetch('https://medicheckapi.vercel.app/evento', {
+        const res = await fetch('http://localhost:3000/evento', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

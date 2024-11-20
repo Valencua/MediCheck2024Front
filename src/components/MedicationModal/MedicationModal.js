@@ -16,7 +16,7 @@ const MedicationModal = ({ isOpen, handleClose }) => {
         e.preventDefault();
         const authToken = localStorage.getItem('token');
         // Send a POST request to the API route
-        const res = await fetch('https://medicheckapi.vercel.app/medicacion', {
+        const res = await fetch('http://localhost:3000/medicacion', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
