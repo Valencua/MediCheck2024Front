@@ -44,7 +44,7 @@ const Login = () => {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
             const idToken = await user.getIdToken();
-            const res = await fetch('http://localhost:3000/login-google', {
+            const res = await fetch('https://medicheckapi.vercel.app/login-google', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -89,7 +89,7 @@ const Login = () => {
 
         try {
             const authToken = await loginWithFirebase(name, pass)
-            const res = await fetch('http://localhost:3000/login', {
+            const res = await fetch('https://medicheckapi.vercel.app/login', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',

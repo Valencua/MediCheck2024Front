@@ -76,7 +76,7 @@
 
 .containerWithBordersTitle{
     border-bottom: 0.2vh solid #50535A80;
-    height: 15vh;
+    height: 14vh;
     display: flex;
     justify-content: center;
     align-items: end;
@@ -93,8 +93,27 @@
     margin-right: 1vh;
 }
 .containerWithBordersLogo{
-    border-bottom: 0.2vh solid #50535A80;
-    height: 24vh;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:2vh;
+    margin-left: 1vh;
+    margin-right: 1vh;
+}
+.containerWithReminder{
+    height: 38vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:2vh;
+    margin-left: 1vh;
+    margin-right: 1vh;
+}
+.containerWithTeam{
+    height: 21.5vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -104,18 +123,26 @@
     margin-right: 1vh;
 }
 
-.modalTitle{
+.modalTitle {
     font-family: "Baloo 2", sans-serif;
-    font-size: 3.8vh;
+    font-size: 4vh; /* You can adjust this based on your needs */
     font-weight: 700;
-    color: #102538;
-    text-shadow: 0.5px 0.5px 1px #102538, -0.5px -0.5px 1px #102538, 0.5px -0.5px 1px #102538, -0.5px 0.5px 1px #102538;
+    color: #F7EFED;
+    
+    /* Enhanced outline effect */
+    text-shadow: 
+        -1px -1px 2px #264558,  /* Subtle shadow top-left */
+        1px -1px 2px #264558,   /* Subtle shadow top-right */
+        -1px 1px 2px #264558,   /* Subtle shadow bottom-left */
+        1px 1px 2px #264558,    /* Subtle shadow bottom-right */
+        0px 0px 5px #264558;    /* Slight glow to make the text pop */
+    
     height: 9vh;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
+
 .userTitle{
     font-family: "Baloo 2", sans-serif;
     font-size: 4vh;
@@ -130,11 +157,25 @@
 }
 
 .icon{
-    background-image: url('../../../public/icons/patient_icon.svg');
+    background-image: url('../../../public/icons/logo2.svg');
     background-size: cover;
     background-position: center;
-    width: 17vh;
-    height: 17vh;
+    width: 41.9vh;
+    height: 11vh;
+}
+.reminder{
+    background-image: url('../../../public/icons/Recordatorio.svg');
+    background-size: cover;
+    background-position: center;
+    width: 41.9vh;
+    height: 37vh;
+}
+.team{
+    background-image: url('../../../public/icons/team.svg');
+    background-size: cover;
+    background-position: center;
+    width: 41vh;
+    height: 20vh;
 }
 
 .LogoContainer{

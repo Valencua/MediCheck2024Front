@@ -23,7 +23,7 @@ const HabitosNoSaludablesModal = ({ isOpen, handleClose, agregarAlimentar }) => 
         //diaDeEvento, actividadFisica, alimentacionSaludable, minSueño
         // Send a POST request to the API route
         const authToken = localStorage.getItem('token');
-        const res = await fetch('http://localhost:3000/habitos-no-saludables', {
+        const res = await fetch('https://medicheckapi.vercel.app/habitos-no-saludables', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

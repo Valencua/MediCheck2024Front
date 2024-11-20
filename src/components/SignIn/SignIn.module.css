@@ -65,7 +65,7 @@
     padding-top: 3vh;
     padding-left: 1vh;
 }
-.buttonModal, .buttonPaciente, .buttonMedico{
+.buttonModal, .buttonPaciente, .buttonMedico, .selectedButton{
     font-family: "Baloo 2", sans-serif!important;
     font-weight: 600!important;
     width: 18vh!important;
@@ -165,4 +165,9 @@
     background-position: center;
     width: 2.36vh;
     height: 2vh;
+}
+.selectedButton {
+    background-color: #354e85!important;
+    color: #e9e3e5!important;
+    border: 0.3vh solid #0e2c49!important;
 }

@@ -35,7 +35,7 @@ const Calendar = () => {
     const fetchData = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch('http://localhost:3000/eventos', {
+            const response = await fetch('https://medicheckapi.vercel.app/eventos', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

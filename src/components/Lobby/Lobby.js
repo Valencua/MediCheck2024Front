@@ -10,27 +10,17 @@ const Lobby = ({paciente}) => {
     return (
         <Box className={styles.loginContainer}> 
             <Box className={styles.containerWithBordersTitle}>
-                <Typography variant="h2" className={styles.modalTitle}>Perfil</Typography>
+                <Typography variant="h2" className={styles.modalTitle}>Bienvenido</Typography>
             </Box>
             <Box className={styles.containerWithBordersLogo}>
                 <div className={styles.icon}></div>
             </Box>
-            <div className={styles.accordionContainer}>
-                <div className={styles.accordionListContainer}>
-                    <div
-                        className={styles.accordionHeader}
-                    >
-                        <div className={styles.patientDataContainer}>
-                            <div className={styles.userTitle}>
-                                {item}
-                            </div>
-                            <div className={styles.accordionAmount}>
-                                {item}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
+            <Box className={styles.containerWithReminder}>
+                <div className={styles.reminder}></div>
+            </Box>
+            <Box className={styles.containerWithTeam}>
+                <div className={styles.team}></div>
+            </Box>
         </Box>
     );
 };

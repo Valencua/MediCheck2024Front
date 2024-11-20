@@ -35,7 +35,7 @@ const SignIn = () => {
     
           // Get the ID token
           const idToken = await user.getIdToken();
-          const res = await fetch('http://localhost:3000/login-google', {
+          const res = await fetch('https://medicheckapi.vercel.app/login-google', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -61,7 +61,7 @@ const SignIn = () => {
         e.preventDefault();
         const userToken = await registerWithFirebase(email, pass)
         try{
-            const res = await fetch('http://localhost:3000/register', {
+            const res = await fetch('https://medicheckapi.vercel.app/register', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -76,10 +76,21 @@ const SignIn = () => {
             });
 
             const data = await res.json();
-        
+            debugger
             if (res.ok) {
-                localStorage.setItem('token', userToken);
-                router.push('/calendar');
+                if (data.rol == 'patient')
+                {
+                    localStorage.setItem('token', userToken);
+                    localStorage.setItem('user', JSON.stringify(data));
+                    router.push('/calendar');  
+                    debugger
+                }
+                else if (data.rol == 'doctor')
+                {
+                    localStorage.setItem('token', userToken);
+                    localStorage.setItem('user', JSON.stringify(data));
+                    router.push('/patient-list');
+                } 
             } else {
                 setError(data.message);
             }
@@ -96,13 +107,10 @@ const SignIn = () => {
         event.preventDefault();
     };
     
-    const handleSetRolAsPatient = () => {
-        setRol("patient"); 
-    };
-    const handleSetRolAsDoctor = () => {
-        setRol("doctor"); 
-    };
+    const buttonPacienteStyle = rol === 'patient' ? styles.selectedButton : styles.buttonPaciente;
+    const buttonMedicoStyle = rol === 'doctor' ? styles.selectedButton : styles.buttonMedico;
 
+    
     return (
         <Box className={styles.loginContainer}> 
             <Box className={styles.containerWithBordersTitle}>
@@ -209,10 +217,22 @@ const SignIn = () => {
                 </div>
             </Box>
             <Box className={styles.buttonContainer2}>
-                <Button className={styles.buttonPaciente} variant="contained" color="primary" onClick={handleSetRolAsPatient} fullWidth>
+                <Button
+                    className={buttonPacienteStyle}
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setRol("patient")}
+                    fullWidth
+                >
                     Paciente
                 </Button>
-                <Button className={styles.buttonMedico} variant="contained" color="primary" onClick={handleSetRolAsDoctor} fullWidth>
+                <Button
+                    className={buttonMedicoStyle}
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setRol("doctor")}
+                    fullWidth
+                >
                     Médico
                 </Button>
             </Box>

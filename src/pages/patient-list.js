@@ -13,7 +13,7 @@ export default function PatientListPage() {
     const fetchData = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch('http://localhost:3000/patients', {
+            const response = await fetch('https://medicheckapi.vercel.app/patients', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

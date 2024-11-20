@@ -16,8 +16,13 @@ const PatientList = ({pacientes}) => {
             pathname: '/patient-profile',
             query: { paciente: JSON.stringify(paciente) },
         });}
-    const goToPatientCalendar = () => {
-        router.push('/calendar');}
+    const goToPatientCalendar =(paciente) => {
+        router.push({   
+            pathname: '/calendar-doctor',
+            query: { paciente: JSON.stringify(paciente) },
+        }); 
+    }
+
     return (
         <div className={styles.accordionContainer}> 
             <div className={styles.containerWithBordersTitle}>
