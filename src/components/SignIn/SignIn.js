@@ -76,14 +76,14 @@ const SignIn = () => {
             });
 
             const data = await res.json();
-            debugger
+            
             if (res.ok) {
                 if (data.rol == 'patient')
                 {
                     localStorage.setItem('token', userToken);
                     localStorage.setItem('user', JSON.stringify(data));
                     router.push('/calendar');  
-                    debugger
+                    
                 }
                 else if (data.rol == 'doctor')
                 {
